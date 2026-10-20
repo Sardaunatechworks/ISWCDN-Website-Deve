@@ -29,8 +29,8 @@ if ($useCliZip) {
     $escapedSource = escapeshellarg($sourceDir);
     $escapedOutput = escapeshellarg($outputZip);
     
-    // Package from within api folder so paths are root-relative, including .htaccess and .env.example
-    $cmd = "cd {$escapedSource} && zip -r {$escapedOutput} . -x \".env\" -x \".git*\" -x \"*.DS_Store\"";
+    // Package from within api folder so paths are root-relative, including .htaccess and .env
+    $cmd = "cd {$escapedSource} && zip -r {$escapedOutput} . -x \".git*\" -x \"*.DS_Store\"";
     $output = [];
     $returnVar = 0;
     exec($cmd, $output, $returnVar);
@@ -82,6 +82,7 @@ if (is_dir($desktopDir)) {
     @copy($sourceDir . '/extract.php', $desktopDir . '/extract.php');
     @copy($sourceDir . '/schema.sql', $desktopDir . '/schema.sql');
     @copy($sourceDir . '/seed.sql', $desktopDir . '/seed.sql');
+    @copy($sourceDir . '/cleanup_gallery.sql', $desktopDir . '/cleanup_gallery.sql');
     @copy($sourceDir . '/.env.example', $desktopDir . '/.env.example');
     if (file_exists($sourceDir . '/.env')) {
         @copy($sourceDir . '/.env', $desktopDir . '/.env');
@@ -92,6 +93,7 @@ if (is_dir($desktopDir)) {
     echo "  - $desktopDir/extract.php\n";
     echo "  - $desktopDir/schema.sql\n";
     echo "  - $desktopDir/seed.sql\n";
+    echo "  - $desktopDir/cleanup_gallery.sql\n";
     echo "  - $desktopDir/.env\n";
     echo "  - $desktopDir/.env.example\n";
 }

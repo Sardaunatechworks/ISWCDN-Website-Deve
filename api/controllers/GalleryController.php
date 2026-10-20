@@ -24,15 +24,15 @@ class GalleryController
         $category = trim((string)($_GET['category'] ?? ''));
 
         $db = Database::getConnection();
-        $sql = 'SELECT * FROM gallery';
+        $sql = "SELECT * FROM gallery WHERE image_url NOT REGEXP 'image([0-9]+)\\.png' AND image_url NOT LIKE '%logo%'";
         $params = [];
 
         if ($category !== '') {
-            $sql .= ' WHERE category = :category';
+            $sql .= ' AND category = :category';
             $params[':category'] = $category;
         }
 
-        $sql .= ' ORDER BY created_at DESC';
+        $sql .= ' ORDER BY order_index ASC, id ASC';
 
         $stmt = $db->prepare($sql);
         $stmt->execute($params);

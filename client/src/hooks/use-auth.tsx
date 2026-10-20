@@ -30,12 +30,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [loading, setLoading] = useState(true);
 
   const fetchCurrentUser = async () => {
+    const token = localStorage.getItem('iswcdn_token');
+    if (!token) {
+      setUser(null);
+      setLoading(false);
+      return;
+    }
+
     try {
       const res = await api.get<{ user: AdminUser }>('/auth/me');
       if (res && res.user) {
         setUser(res.user);
       } else {
         setUser(null);
+        localStorage.removeItem('iswcdn_token');
       }
     } catch {
       setUser(null);

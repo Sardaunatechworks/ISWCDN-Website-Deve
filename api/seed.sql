@@ -64,24 +64,14 @@ INSERT INTO `team` (`id`, `name`, `role`, `image_url`, `bio`, `order_index`, `is
 (7, 'Barr Najib Rabiu', 'Legal Adviser', '/profiles/jsfxd0x7w2l.jpeg', 'Legal Adviser overseeing regulatory compliance, governance, and statutory affairs.', 7, 1)
 ON DUPLICATE KEY UPDATE `name` = VALUES(`name`), `role` = VALUES(`role`), `image_url` = VALUES(`image_url`), `bio` = VALUES(`bio`);
 
--- 5. Real Photo Gallery Catalog (16 Records from Backup)
+-- 5. Real Photo Gallery Catalog (Only Regular Photo Galleries, Excluding Partner Logos)
 INSERT INTO `gallery` (`id`, `title`, `image_url`, `category`, `order_index`) VALUES
 (1, 'Inauguration Ceremony', '/inaguration.png', 'Events', 1),
 (2, 'Partnership Handshake', '/handshake.png', 'Corporate', 2),
 (3, 'Youth Development Project', '/kids.png', 'Community', 3),
 (4, 'Community Outreach Program', '/kids2.png', 'Community', 4),
-(5, 'Exhibition Hall', '/image1.png', 'Institute', 5),
-(6, 'Learning Session', '/image2.png', 'Training', 6),
-(7, 'Professional Seminar', '/image3.png', 'Events', 7),
-(8, 'Regional Conference', '/image4.png', 'Events', 8),
-(9, 'Award Presentation', '/image5.png', 'Awards', 9),
-(10, 'Social Work Workshop', '/image6.png', 'Training', 10),
-(11, 'Facility Inspection', '/image7.png', 'General', 11),
-(12, 'Delegate Meeting', '/image8.png', 'Meetings', 12),
-(13, 'Certification Ceremony', '/image9.png', 'Awards', 13),
-(14, 'Leadership Summit', '/image10.png', 'Events', 14),
-(15, 'Keynote Speaker', '/speaker.png', 'Training', 15),
-(16, 'Dignitary Visit', '/ashiru.png', 'Corporate', 16)
+(5, 'Keynote Speaker Session', '/speaker.png', 'Training', 5),
+(6, 'Dignitary Visit & Executive Outreach', '/ashiru.png', 'Corporate', 6)
 ON DUPLICATE KEY UPDATE `title` = VALUES(`title`), `image_url` = VALUES(`image_url`), `category` = VALUES(`category`);
 
 -- 6. Real Newsletter Subscribers (2 Records from Backup)

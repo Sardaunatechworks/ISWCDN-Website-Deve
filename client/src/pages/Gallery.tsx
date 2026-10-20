@@ -12,23 +12,18 @@ interface GalleryImage {
   category: string;
 }
 
+const isLogoOrPartner = (url: string) => {
+  const lower = url.toLowerCase();
+  return lower.includes('logo') || /image([0-9]+)\.png/.test(lower);
+};
+
 const SEEDED_GALLERY: GalleryImage[] = [
   { id: 1, title: 'Inauguration Ceremony', category: 'Events', image_url: '/inaguration.png' },
   { id: 2, title: 'Partnership Handshake', category: 'Corporate', image_url: '/handshake.png' },
   { id: 3, title: 'Youth Development Project', category: 'Community', image_url: '/kids.png' },
   { id: 4, title: 'Community Outreach Program', category: 'Community', image_url: '/kids2.png' },
-  { id: 5, title: 'Exhibition Hall', category: 'Institute', image_url: '/image1.png' },
-  { id: 6, title: 'Learning Session', category: 'Training', image_url: '/image2.png' },
-  { id: 7, title: 'Professional Seminar', category: 'Events', image_url: '/image3.png' },
-  { id: 8, title: 'Regional Conference', category: 'Events', image_url: '/image4.png' },
-  { id: 9, title: 'Award Presentation', category: 'Awards', image_url: '/image5.png' },
-  { id: 10, title: 'Social Work Workshop', category: 'Training', image_url: '/image6.png' },
-  { id: 11, title: 'Facility Inspection', category: 'General', image_url: '/image7.png' },
-  { id: 12, title: 'Delegate Meeting', category: 'Meetings', image_url: '/image8.png' },
-  { id: 13, title: 'Certification Ceremony', category: 'Awards', image_url: '/image9.png' },
-  { id: 14, title: 'Leadership Summit', category: 'Events', image_url: '/image10.png' },
-  { id: 15, title: 'Keynote Speaker', category: 'Training', image_url: '/speaker.png' },
-  { id: 16, title: 'Dignitary Visit', category: 'Corporate', image_url: '/ashiru.png' },
+  { id: 5, title: 'Keynote Speaker Session', category: 'Training', image_url: '/speaker.png' },
+  { id: 6, title: 'Dignitary Visit & Executive Outreach', category: 'Corporate', image_url: '/ashiru.png' },
 ];
 
 export default function Gallery() {
@@ -40,7 +35,10 @@ export default function Gallery() {
       try {
         const data = await api.get<GalleryImage[]>('/gallery');
         if (Array.isArray(data) && data.length > 0) {
-          setImages(data);
+          const filtered = data.filter(img => !isLogoOrPartner(img.image_url));
+          if (filtered.length > 0) {
+            setImages(filtered);
+          }
         }
       } catch (error) {
         console.warn("Live gallery fetch fallback to seeded data:", error);
