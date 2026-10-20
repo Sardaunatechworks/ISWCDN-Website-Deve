@@ -42,7 +42,7 @@ $requestUri = $_SERVER['REQUEST_URI'] ?? '/';
 $parsedPath = parse_url($requestUri, PHP_URL_PATH) ?: '/';
 
 // Serve uploads or static media if requested directly through this script
-if (str_starts_with($parsedPath, '/api/uploads/') || str_starts_with($parsedPath, '/uploads/') || str_starts_with($parsedPath, '/profiles/')) {
+if (str_starts_with($parsedPath, '/api/uploads/') || str_starts_with($parsedPath, '/uploads/') || str_starts_with($parsedPath, '/profiles/') || str_starts_with($parsedPath, '/gallery/') || preg_match('#\.(png|jpe?g|webp|gif|svg)$#i', $parsedPath)) {
     $filePath = null;
     if (str_starts_with($parsedPath, '/api/uploads/')) {
         $relFile = substr($parsedPath, strlen('/api/uploads/'));
@@ -53,11 +53,23 @@ if (str_starts_with($parsedPath, '/api/uploads/') || str_starts_with($parsedPath
     } elseif (str_starts_with($parsedPath, '/profiles/')) {
         $relFile = substr($parsedPath, strlen('/profiles/'));
         $filePath = UPLOAD_DIR . '/profiles/' . ltrim($relFile, '/');
+    } elseif (str_starts_with($parsedPath, '/gallery/')) {
+        $relFile = substr($parsedPath, strlen('/gallery/'));
+        $filePath = UPLOAD_DIR . '/gallery/' . ltrim($relFile, '/');
+    } else {
+        // Direct root image file, check uploads/gallery and uploads/profiles
+        $filename = basename($parsedPath);
+        if (file_exists(UPLOAD_DIR . '/gallery/' . $filename)) {
+            $filePath = UPLOAD_DIR . '/gallery/' . $filename;
+        } elseif (file_exists(UPLOAD_DIR . '/profiles/' . $filename)) {
+            $filePath = UPLOAD_DIR . '/profiles/' . $filename;
+        }
     }
 
     if ($filePath && file_exists($filePath) && is_file($filePath)) {
         $finfo = new \finfo(FILEINFO_MIME_TYPE);
         $mime = $finfo->file($filePath);
+        header('Access-Control-Allow-Origin: *');
         header('Content-Type: ' . $mime);
         header('Content-Length: ' . filesize($filePath));
         header('Cache-Control: public, max-age=86400');

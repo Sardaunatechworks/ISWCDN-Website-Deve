@@ -18,20 +18,38 @@ interface Course {
   description: string;
 }
 
+const SEEDED_COURSES: Course[] = [
+  { id: 1, title: 'Diploma in Social Work', category: 'diploma', duration: '2 Years', type: 'Long-Term', description: 'Comprehensive curriculum covering theoretical foundations and practical field applications.' },
+  { id: 2, title: 'Project Planning & Management', category: 'diploma', duration: '18 Months', type: 'Long-Term', description: 'Comprehensive curriculum covering theoretical foundations and practical field applications.' },
+  { id: 3, title: 'Community Development Studies', category: 'diploma', duration: '2 Years', type: 'Long-Term', description: 'Comprehensive curriculum covering theoretical foundations and practical field applications.' },
+  { id: 4, title: 'Public Administration', category: 'diploma', duration: '2 Years', type: 'Long-Term', description: 'Comprehensive curriculum covering theoretical foundations and practical field applications.' },
+  { id: 5, title: 'MHPSS (Mental Health & Psychosocial Support)', category: 'certificate', duration: '6 Months', type: 'Short Course', description: 'Comprehensive curriculum covering theoretical foundations and practical field applications.' },
+  { id: 6, title: 'Social Accountability & Governance', category: 'certificate', duration: '3 Months', type: 'Short Course', description: 'Comprehensive curriculum covering theoretical foundations and practical field applications.' },
+  { id: 7, title: 'Child Protection Services', category: 'certificate', duration: '4 Months', type: 'Short Course', description: 'Comprehensive curriculum covering theoretical foundations and practical field applications.' },
+  { id: 8, title: 'Health Social Work', category: 'certificate', duration: '1 Year', type: 'Specialization', description: 'Comprehensive curriculum covering theoretical foundations and practical field applications.' },
+  { id: 9, title: 'Justice & Rehabilitation', category: 'certificate', duration: '1 Year', type: 'Specialization', description: 'Comprehensive curriculum covering theoretical foundations and practical field applications.' },
+  { id: 10, title: 'Tech4Dev (Technology for Development)', category: 'certificate', duration: '6 Months', type: 'Technical', description: 'Comprehensive curriculum covering theoretical foundations and practical field applications.' },
+  { id: 11, title: 'Advanced Leadership in Social Sector', category: 'executive', duration: '5 Days', type: 'Workshop', description: 'Comprehensive curriculum covering theoretical foundations and practical field applications.' },
+  { id: 12, title: 'Strategic NGO Management', category: 'executive', duration: '1 Week', type: 'Intensive', description: 'Comprehensive curriculum covering theoretical foundations and practical field applications.' },
+  { id: 13, title: 'Welding & Fabrication', category: 'vocational', duration: '6 Months', type: 'Vocational', description: 'Comprehensive curriculum covering theoretical foundations and practical field applications.' },
+  { id: 14, title: 'Fashion Designing & Tailoring', category: 'vocational', duration: '1 Year', type: 'Vocational', description: 'Comprehensive curriculum covering theoretical foundations and practical field applications.' },
+  { id: 15, title: 'Automobile Repair & Maintenance', category: 'vocational', duration: '6 Months', type: 'Vocational', description: 'Comprehensive curriculum covering theoretical foundations and practical field applications.' },
+  { id: 16, title: 'Computer & Information Technology', category: 'vocational', duration: '3 Months', type: 'Vocational', description: 'Comprehensive curriculum covering theoretical foundations and practical field applications.' },
+];
+
 export default function Courses() {
-  const [courses, setCourses] = useState<Course[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [courses, setCourses] = useState<Course[]>(SEEDED_COURSES);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function fetchCourses() {
       try {
-        setLoading(true);
         const data = await api.get<Course[]>('/courses');
-        setCourses(data || []);
+        if (Array.isArray(data) && data.length > 0) {
+          setCourses(data);
+        }
       } catch (error) {
-        console.error("Courses fetch failed:", error);
-      } finally {
-        setLoading(false);
+        console.warn("Live courses fetch fallback to seeded catalog:", error);
       }
     }
     fetchCourses();

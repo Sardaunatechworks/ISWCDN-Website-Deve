@@ -5,6 +5,7 @@ import { Target, Eye, Lightbulb, Shield, Heart, Scale, Users, BookOpen, Loader2 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { api } from "@/lib/api";
+import { getMediaUrl, getMediaFallbackUrl } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface TeamMember {
@@ -15,20 +16,71 @@ interface TeamMember {
   bio: string;
 }
 
+const SEEDED_TEAM: TeamMember[] = [
+  {
+    id: 1,
+    name: 'Baheejah Mahmood Abdullah',
+    role: 'CEO/ED',
+    image_url: '/profiles/kib1znf1xm9.jpeg',
+    bio: 'Executive Director providing strategic leadership and oversight for community development initiatives across Nigeria.',
+  },
+  {
+    id: 2,
+    name: 'Cmr Aminu Umar Malu',
+    role: 'Secretary',
+    image_url: '/profiles/raud9oln95e.jpeg',
+    bio: 'Secretariat administration, council documentation, and institutional correspondence.',
+  },
+  {
+    id: 3,
+    name: 'Prof. Abubakar Yahaya',
+    role: 'Director Academic Planning',
+    image_url: '/profiles/wtylxoxtmh.jpeg',
+    bio: 'Director of Academic Planning leading curriculum standards and accreditation.',
+  },
+  {
+    id: 4,
+    name: 'Amb. Sulaiman Ashiru',
+    role: 'HR/program Manager',
+    image_url: '/profiles/jc2td6zvu9p.jpeg',
+    bio: 'Human Resources and Program Manager steering organizational development and field outreach.',
+  },
+  {
+    id: 5,
+    name: 'Abba Dauda',
+    role: 'DLP Coordinator',
+    image_url: '/profiles/yqqbphwssj9.jpeg',
+    bio: 'Distance Learning Program (DLP) Coordinator expanding educational access nationwide.',
+  },
+  {
+    id: 6,
+    name: 'Muhammad Dini Ibrahim',
+    role: 'Monitoring and Evaluation',
+    image_url: '/profiles/38jbt3lboal.jpeg',
+    bio: 'Monitoring and Evaluation Officer ensuring data integrity, impact assessment, and project fidelity.',
+  },
+  {
+    id: 7,
+    name: 'Barr Najib Rabiu',
+    role: 'Legal Adviser',
+    image_url: '/profiles/jsfxd0x7w2l.jpeg',
+    bio: 'Legal Adviser overseeing regulatory compliance, governance, and statutory affairs.',
+  },
+];
+
 export default function About() {
-  const [team, setTeam] = useState<TeamMember[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [team, setTeam] = useState<TeamMember[]>(SEEDED_TEAM);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function fetchTeam() {
       try {
-        setLoading(true);
         const data = await api.get<TeamMember[]>('/team');
-        setTeam(data || []);
+        if (Array.isArray(data) && data.length > 0) {
+          setTeam(data);
+        }
       } catch (error) {
-        console.error("Team fetch failed:", error);
-      } finally {
-        setLoading(false);
+        console.warn("Live team fetch fallback to seeded data:", error);
       }
     }
     fetchTeam();
@@ -136,7 +188,18 @@ export default function About() {
               team.map((member) => (
                 <div key={member.id} className="group relative bg-white border border-border rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
                   <div className="aspect-square overflow-hidden bg-slate-100">
-                    <img src={member.image_url} alt={member.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <img
+                      src={getMediaUrl(member.image_url)}
+                      alt={member.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      onError={(e) => {
+                        const target = e.currentTarget;
+                        const fallback = getMediaFallbackUrl(member.image_url);
+                        if (target.src !== fallback) {
+                          target.src = fallback;
+                        }
+                      }}
+                    />
                   </div>
                   <div className="p-6 text-center">
                     <h3 className="font-bold text-xl text-primary font-serif mb-1">{member.name}</h3>

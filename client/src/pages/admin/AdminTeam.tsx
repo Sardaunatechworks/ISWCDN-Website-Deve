@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { api } from "@/lib/api";
+import { getMediaUrl, getMediaFallbackUrl } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import {
   Dialog,
@@ -186,7 +187,18 @@ export default function AdminTeam() {
             <Card key={member.id} className="border-border/60 shadow-sm bg-white overflow-hidden group">
               <div className="aspect-square relative overflow-hidden bg-slate-100">
                 {member.image_url ? (
-                  <img src={member.image_url} alt={member.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <img
+                    src={getMediaUrl(member.image_url)}
+                    alt={member.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    onError={(e) => {
+                      const target = e.currentTarget;
+                      const fallback = getMediaFallbackUrl(member.image_url);
+                      if (target.src !== fallback) {
+                        target.src = fallback;
+                      }
+                    }}
+                  />
                 ) : (
                   <div className="flex items-center justify-center h-full text-slate-300">
                     <ImageIcon className="h-12 w-12" />
@@ -257,7 +269,18 @@ export default function AdminTeam() {
                    <div className="flex items-center gap-3">
                       <div className="h-20 w-20 rounded-xl overflow-hidden bg-slate-100 border border-border">
                          {formData.image_url ? (
-                           <img src={formData.image_url} alt="Preview" className="w-full h-full object-cover" />
+                           <img
+                             src={getMediaUrl(formData.image_url)}
+                             alt="Preview"
+                             className="w-full h-full object-cover"
+                             onError={(e) => {
+                               const target = e.currentTarget;
+                               const fallback = getMediaFallbackUrl(formData.image_url);
+                               if (target.src !== fallback) {
+                                 target.src = fallback;
+                               }
+                             }}
+                           />
                          ) : (
                            <div className="flex items-center justify-center h-full text-slate-300">
                              <ImageIcon className="h-8 w-8" />

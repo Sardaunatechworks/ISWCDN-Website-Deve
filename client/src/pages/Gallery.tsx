@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { PageHeader } from "@/components/PageHeader";
 import { api } from "@/lib/api";
+import { getMediaUrl, getMediaFallbackUrl } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ImageIcon } from "lucide-react";
 
@@ -11,24 +12,43 @@ interface GalleryImage {
   category: string;
 }
 
+const SEEDED_GALLERY: GalleryImage[] = [
+  { id: 1, title: 'Inauguration Ceremony', category: 'Events', image_url: '/inaguration.png' },
+  { id: 2, title: 'Partnership Handshake', category: 'Corporate', image_url: '/handshake.png' },
+  { id: 3, title: 'Youth Development Project', category: 'Community', image_url: '/kids.png' },
+  { id: 4, title: 'Community Outreach Program', category: 'Community', image_url: '/kids2.png' },
+  { id: 5, title: 'Exhibition Hall', category: 'Institute', image_url: '/image1.png' },
+  { id: 6, title: 'Learning Session', category: 'Training', image_url: '/image2.png' },
+  { id: 7, title: 'Professional Seminar', category: 'Events', image_url: '/image3.png' },
+  { id: 8, title: 'Regional Conference', category: 'Events', image_url: '/image4.png' },
+  { id: 9, title: 'Award Presentation', category: 'Awards', image_url: '/image5.png' },
+  { id: 10, title: 'Social Work Workshop', category: 'Training', image_url: '/image6.png' },
+  { id: 11, title: 'Facility Inspection', category: 'General', image_url: '/image7.png' },
+  { id: 12, title: 'Delegate Meeting', category: 'Meetings', image_url: '/image8.png' },
+  { id: 13, title: 'Certification Ceremony', category: 'Awards', image_url: '/image9.png' },
+  { id: 14, title: 'Leadership Summit', category: 'Events', image_url: '/image10.png' },
+  { id: 15, title: 'Keynote Speaker', category: 'Training', image_url: '/speaker.png' },
+  { id: 16, title: 'Dignitary Visit', category: 'Corporate', image_url: '/ashiru.png' },
+];
+
 export default function Gallery() {
-  const [images, setImages] = useState<GalleryImage[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [images, setImages] = useState<GalleryImage[]>(SEEDED_GALLERY);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function fetchGallery() {
       try {
-        setLoading(true);
         const data = await api.get<GalleryImage[]>('/gallery');
-        setImages(data || []);
+        if (Array.isArray(data) && data.length > 0) {
+          setImages(data);
+        }
       } catch (error) {
-        console.error("Gallery fetch failed:", error);
-      } finally {
-        setLoading(false);
+        console.warn("Live gallery fetch fallback to seeded data:", error);
       }
     }
     fetchGallery();
   }, []);
+
 
   return (
     <div className="min-h-screen bg-white">
@@ -58,9 +78,16 @@ export default function Gallery() {
                 className="group relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500"
               >
                 <img
-                  src={img.image_url}
+                  src={getMediaUrl(img.image_url)}
                   alt={img.title}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    const fallback = getMediaFallbackUrl(img.image_url);
+                    if (target.src !== fallback) {
+                      target.src = fallback;
+                    }
+                  }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
                   <div className="p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">

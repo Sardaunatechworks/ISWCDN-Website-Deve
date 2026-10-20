@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { api } from "@/lib/api";
+import { getMediaUrl, getMediaFallbackUrl } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -165,7 +166,18 @@ export default function AdminGallery() {
               images.map((img) => (
                 <div key={img.id} className="group relative rounded-xl border border-border/60 overflow-hidden bg-white shadow-sm hover:shadow-md transition-all">
                   <div className="aspect-[4/3] bg-slate-100 relative overflow-hidden">
-                    <img src={img.image_url} alt={img.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                    <img 
+                      src={getMediaUrl(img.image_url)} 
+                      alt={img.title} 
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      onError={(e) => {
+                        const target = e.currentTarget;
+                        const fallback = getMediaFallbackUrl(img.image_url);
+                        if (target.src !== fallback) {
+                          target.src = fallback;
+                        }
+                      }}
+                    />
                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
                       <Button 
                         variant="destructive" 

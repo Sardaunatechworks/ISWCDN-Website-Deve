@@ -43,8 +43,9 @@ function PublicRouter() {
 
 function App() {
   const [location] = useLocation();
-  const isAdminRoute = location.startsWith("/admin");
-  const isLoginPage = location === "/admin/login";
+  const lowerLoc = location.toLowerCase();
+  const isAdminRoute = lowerLoc.startsWith("/admin");
+  const isLoginPage = lowerLoc === "/admin/login";
 
   return (
     <AuthProvider>
