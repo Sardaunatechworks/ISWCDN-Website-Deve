@@ -5,8 +5,10 @@
 
 declare(strict_types=1);
 
-define('ISWCDN_API_VERSION', '1.0.0');
-define('ISWCDN_API_NAME', 'ISWCDN Institutional API');
+define('ISOWCOD_API_VERSION', '1.0.0');
+define('ISOWCOD_API_NAME', 'ISOWCOD Institutional API');
+define('ISWCDN_API_VERSION', ISOWCOD_API_VERSION);
+define('ISWCDN_API_NAME', ISOWCOD_API_NAME);
 
 // Load environment variables from .env if present
 $envFile = dirname(__DIR__) . '/.env';

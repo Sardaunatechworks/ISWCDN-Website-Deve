@@ -84,9 +84,9 @@ export function Footer() {
           {/* Brand Column */}
           <div className="space-y-4">
             <div className="flex items-center space-x-3">
-              <img src="/logo.png" alt="ISWCDN Logo" className="h-8 w-auto object-contain" />
+              <img src="/logo.png" alt="ISOWCOD Logo" className="h-8 w-auto object-contain" />
               <h3 className="font-serif text-xl font-bold text-primary">
-                ISWCDN
+                ISOWCOD
               </h3>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
@@ -161,9 +161,9 @@ export function Footer() {
             Community Development of Nigeria. All rights reserved.
           </p>
           <div className="flex space-x-6">
-            <a href="https://facebook.com/iswcdn" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><Facebook className="h-5 w-5" /></a>
-            <a href="https://x.com/iswcdn" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><XIcon className="h-5 w-5" /></a>
-            <a href="https://linkedin.com/company/iswcdn" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><Linkedin className="h-5 w-5" /></a>
+            <a href="https://facebook.com/isowcod" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><Facebook className="h-5 w-5" /></a>
+            <a href="https://x.com/isowcod" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><XIcon className="h-5 w-5" /></a>
+            <a href="https://linkedin.com/company/isowcod" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><Linkedin className="h-5 w-5" /></a>
           </div>
         </div>
       </div>

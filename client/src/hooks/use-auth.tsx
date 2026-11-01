@@ -30,7 +30,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [loading, setLoading] = useState(true);
 
   const fetchCurrentUser = async () => {
-    const token = localStorage.getItem('iswcdn_token');
+    const token = localStorage.getItem('isowcod_token') || localStorage.getItem('iswcdn_token');
     if (!token) {
       setUser(null);
       setLoading(false);
@@ -43,10 +43,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setUser(res.user);
       } else {
         setUser(null);
+        localStorage.removeItem('isowcod_token');
         localStorage.removeItem('iswcdn_token');
       }
     } catch {
       setUser(null);
+      localStorage.removeItem('isowcod_token');
       localStorage.removeItem('iswcdn_token');
     } finally {
       setLoading(false);
@@ -64,6 +66,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     });
 
     if (res.token) {
+      localStorage.setItem('isowcod_token', res.token);
       localStorage.setItem('iswcdn_token', res.token);
     }
     setUser(res.user);
@@ -76,6 +79,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     } catch {
       // Ignore logout errors and clean up local state
     } finally {
+      localStorage.removeItem('isowcod_token');
       localStorage.removeItem('iswcdn_token');
       setUser(null);
     }

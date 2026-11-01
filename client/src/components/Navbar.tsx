@@ -39,11 +39,11 @@ export function Navbar() {
           <Link href="/">
             <div className="flex items-center space-x-3 cursor-pointer group">
               <div className="shrink-0 group-hover:scale-105 transition-transform duration-300">
-                <img src="/logo.png" alt="ISWCDN Logo" className="h-10 md:h-12 w-auto object-contain drop-shadow-sm" />
+                <img src="/logo.png" alt="ISOWCOD Logo" className="h-10 md:h-12 w-auto object-contain drop-shadow-sm" />
               </div>
               <div className="flex flex-col">
                 <span className="font-serif font-extrabold text-xl md:text-2xl text-primary leading-none tracking-tight">
-                  ISWCDN
+                  ISOWCOD
                 </span>
                 <span className="text-[10px] md:text-[11px] text-muted-foreground font-bold uppercase tracking-[0.15em] hidden sm:block mt-1">
                   Institute of Social Welfare

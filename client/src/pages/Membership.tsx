@@ -6,19 +6,19 @@ import { Link } from "wouter";
 export default function Membership() {
   const tiers = [
     {
-      name: "Fellow (FISWCDN)",
+      name: "Fellow (FISOWCOD)",
       desc: "For distinguished professionals with over 15 years of impactful experience.",
       price: "By Assessment",
       popular: false
     },
     {
-      name: "Full Member (MISWCDN)",
+      name: "Full Member (MISOWCOD)",
       desc: "For qualified practitioners with at least 5 years of field experience.",
       price: "₦50,000 / yr",
       popular: true
     },
     {
-      name: "Associate (AISWCDN)",
+      name: "Associate (AISOWCOD)",
       desc: "Entry-level for graduates and early-career professionals.",
       price: "₦25,000 / yr",
       popular: false
@@ -86,7 +86,7 @@ export default function Membership() {
               <div className="mb-8">
                 <span className="text-2xl font-bold text-foreground">{tier.price}</span>
               </div>
-              <Link href="/membership-application">
+              <Link href={`/membership-application?cadre=${encodeURIComponent(tier.name)}`}>
                 <Button className={`w-full ${tier.popular ? 'bg-primary' : 'bg-slate-900'} hover:opacity-90`}>
                   Apply Now
                 </Button>

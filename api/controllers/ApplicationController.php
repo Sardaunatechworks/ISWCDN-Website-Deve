@@ -43,19 +43,68 @@ class ApplicationController
 
         $db = Database::getConnection();
 
-        $stmt = $db->prepare('
-            INSERT INTO applications (application_type, name, email, phone, program, qualification, status)
-            VALUES (:app_type, :name, :email, :phone, :program, :qualification, "Pending")
-        ');
+        // Ensure details column exists if possible
+        $hasDetails = false;
+        try {
+            $colCheck = $db->query("SHOW COLUMNS FROM applications LIKE 'details'")->fetch();
+            if (!$colCheck) {
+                $db->exec("ALTER TABLE applications ADD COLUMN details LONGTEXT NULL DEFAULT NULL");
+            }
+            $hasDetails = true;
+        } catch (\Throwable $e) {
+            $hasDetails = false;
+        }
 
-        $stmt->execute([
-            ':app_type'       => $appType,
-            ':name'           => trim((string)$input['name']),
-            ':email'          => strtolower(trim((string)$input['email'])),
-            ':phone'          => trim((string)$input['phone']),
-            ':program'        => trim((string)$input['program']),
-            ':qualification'  => trim((string)$input['qualification']),
-        ]);
+        // Gather all extra details
+        $detailsData = [];
+        if (isset($input['details']) && is_array($input['details'])) {
+            $detailsData = $input['details'];
+        }
+        // Also capture any top-level extended fields
+        $extendedKeys = [
+            'title', 'gender', 'dob', 'alt_phone', 'nationality', 'state_of_origin', 'lga',
+            'address', 'city', 'state', 'study_mode', 'campus', 'institution', 'graduation_year',
+            'olevel_exam', 'olevel_year', 'olevel_credits', 'next_of_kin_name', 'next_of_kin_phone',
+            'next_of_kin_relationship', 'next_of_kin_address', 'work_experience', 'specialization',
+            'employment_status', 'current_employer', 'job_title', 'years_of_experience',
+            'other_memberships', 'referee_name', 'referee_phone', 'referee_email', 'referee_org'
+        ];
+        foreach ($extendedKeys as $key) {
+            if (isset($input[$key]) && !isset($detailsData[$key])) {
+                $detailsData[$key] = $input[$key];
+            }
+        }
+
+        $detailsJson = !empty($detailsData) ? json_encode($detailsData, JSON_UNESCAPED_UNICODE) : null;
+
+        if ($hasDetails) {
+            $stmt = $db->prepare('
+                INSERT INTO applications (application_type, name, email, phone, program, qualification, details, status)
+                VALUES (:app_type, :name, :email, :phone, :program, :qualification, :details, "Pending")
+            ');
+            $stmt->execute([
+                ':app_type'       => $appType,
+                ':name'           => trim((string)$input['name']),
+                ':email'          => strtolower(trim((string)$input['email'])),
+                ':phone'          => trim((string)$input['phone']),
+                ':program'        => trim((string)$input['program']),
+                ':qualification'  => trim((string)$input['qualification']),
+                ':details'        => $detailsJson,
+            ]);
+        } else {
+            $stmt = $db->prepare('
+                INSERT INTO applications (application_type, name, email, phone, program, qualification, status)
+                VALUES (:app_type, :name, :email, :phone, :program, :qualification, "Pending")
+            ');
+            $stmt->execute([
+                ':app_type'       => $appType,
+                ':name'           => trim((string)$input['name']),
+                ':email'          => strtolower(trim((string)$input['email'])),
+                ':phone'          => trim((string)$input['phone']),
+                ':program'        => trim((string)$input['program']),
+                ':qualification'  => trim((string)$input['qualification']),
+            ]);
+        }
 
         $appId = (int)$db->lastInsertId();
 

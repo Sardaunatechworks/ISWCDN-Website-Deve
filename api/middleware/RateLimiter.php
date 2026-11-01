@@ -22,7 +22,7 @@ class RateLimiter
     {
         $ip = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
         $key = 'rl_' . md5($action . '_' . $ip);
-        $tmpDir = sys_get_temp_dir() . '/iswcdn_ratelimits';
+        $tmpDir = sys_get_temp_dir() . '/isowcod_ratelimits';
 
         if (!is_dir($tmpDir)) {
             @mkdir($tmpDir, 0755, true);

@@ -1,5 +1,5 @@
 -- =====================================================================
--- ISWCDN - Institute of Social Welfare and Community Development of Nigeria
+-- ISOWCOD - Institute of Social Welfare and Community Development of Nigeria
 -- Real Seed Data Extracted from Database Backup (db_cluster-18-08-2026@18-39-05)
 -- =====================================================================
 

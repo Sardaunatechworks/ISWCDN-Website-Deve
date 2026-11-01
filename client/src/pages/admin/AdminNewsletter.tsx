@@ -142,7 +142,7 @@ export default function AdminNewsletter() {
             const url = URL.createObjectURL(blob);
             const link = document.createElement("a");
             link.href = url;
-            link.download = "iswcdn_subscribers.txt";
+            link.download = "isowcod_subscribers.txt";
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);

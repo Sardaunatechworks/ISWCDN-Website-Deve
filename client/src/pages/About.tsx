@@ -101,7 +101,7 @@ export default function About() {
     <div className="min-h-screen">
       <PageHeader
         title="Who We Are"
-        description="The Institute of Social Welfare and Community Development of Nigeria (ISWCDN) is a professional body dedicated to excellence in social work."
+        description="The Institute of Social Welfare and Community Development of Nigeria (ISOWCOD) is a professional body dedicated to excellence in social work."
       />
 
       <div className="container mx-auto px-4 py-20">

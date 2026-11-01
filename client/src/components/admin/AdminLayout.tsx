@@ -58,9 +58,9 @@ export function AdminLayout() {
         <div className="p-6 border-b border-primary-foreground/10 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <div className="bg-white p-1.5 rounded-lg shrink-0">
-              <img src="/logo.png" alt="ISWCDN Logo" className="h-8 w-8 object-contain" />
+              <img src="/logo.png" alt="ISOWCOD Logo" className="h-8 w-8 object-contain" />
             </div>
-            <span className="font-serif font-bold text-lg leading-tight">ISWCDN Admin</span>
+            <span className="font-serif font-bold text-lg leading-tight">ISOWCOD Admin</span>
           </div>
         </div>
 

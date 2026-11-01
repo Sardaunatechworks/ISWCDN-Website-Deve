@@ -1,10 +1,10 @@
-# ISWCDN Institutional Website
+# ISOWCOD Institutional Website
 
-Official institutional portal and administrative management system for the **Institute of Social Welfare and Community Development of Nigeria (ISWCDN)**.
+Official institutional portal and administrative management system for the **Institute of Social Welfare and Community Development of Nigeria (ISOWCOD)**.
 
 ## 🏛️ System Overview
 
-The ISWCDN platform serves as the official national digital presence for the Institute, providing comprehensive information about professional certifications, membership cadres, and institutional leadership while managing student admissions, membership applications, photo galleries, and public communications.
+The ISOWCOD platform serves as the official national digital presence for the Institute, providing comprehensive information about professional certifications, membership cadres, and institutional leadership while managing student admissions, membership applications, photo galleries, and public communications.
 
 ---
 
@@ -120,4 +120,4 @@ The deployment zip archive is pre-built and waiting on your Desktop:
 - **Password**: `admin123456` *(Change immediately upon first login)*
 
 ---
-© 2026 Institute of Social Welfare and Community Development of Nigeria (ISWCDN).
+© 2026 Institute of Social Welfare and Community Development of Nigeria (ISOWCOD).

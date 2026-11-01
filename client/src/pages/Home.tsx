@@ -51,7 +51,7 @@ export default function Home() {
             Inclusive Development
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-10 leading-relaxed animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">
-            ISWCDN is the premier institute dedicated to professionalizing
+            ISOWCOD is the premier institute dedicated to professionalizing
             social work and community development in Nigeria through education,
             policy, and practice.
           </p>
@@ -87,7 +87,7 @@ export default function Home() {
                 <div className="absolute inset-0 bg-primary/5"></div>
                 <img
                   src="logo.png"
-                  alt="ISWCDN Logo"
+                  alt="ISOWCOD Logo"
                   className="w-3/4 h-auto object-contain transform hover:scale-105 transition-transform duration-700"
                 />
               </div>

@@ -1,5 +1,5 @@
 -- =====================================================================
--- ISWCDN - Institute of Social Welfare and Community Development of Nigeria
+-- ISOWCOD - Institute of Social Welfare and Community Development of Nigeria
 -- Database Schema: MySQL 8.0+ / MariaDB 10.5+
 -- Charset: utf8mb4 / Collation: utf8mb4_unicode_ci
 -- =====================================================================
@@ -64,6 +64,7 @@ CREATE TABLE IF NOT EXISTS `applications` (
   `phone` VARCHAR(50) NOT NULL,
   `program` VARCHAR(150) NOT NULL,
   `qualification` VARCHAR(255) NOT NULL,
+  `details` LONGTEXT NULL DEFAULT NULL,
   `status` ENUM('Pending', 'Approved', 'Rejected') NOT NULL DEFAULT 'Pending',
   `admin_notes` TEXT NULL DEFAULT NULL,
   `submitted_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,

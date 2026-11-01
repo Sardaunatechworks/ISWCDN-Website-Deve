@@ -1,5 +1,5 @@
 /**
- * ISWCDN API Client Layer
+ * ISOWCOD API Client Layer
  * Communicates with the PHP 8.3 REST API backend.
  * Supports both HttpOnly cookies and Bearer token fallback.
  */
@@ -32,7 +32,7 @@ async function request<T = any>(
   const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
   const url = `${API_BASE}${cleanEndpoint}`;
 
-  const token = localStorage.getItem('iswcdn_token');
+  const token = localStorage.getItem('isowcod_token') || localStorage.getItem('iswcdn_token');
 
   const headers: Record<string, string> = {
     'Accept': 'application/json',
@@ -74,6 +74,7 @@ async function request<T = any>(
   if (!response.ok) {
     // If unauthorized, clean up expired local token
     if (response.status === 401) {
+      localStorage.removeItem('isowcod_token');
       localStorage.removeItem('iswcdn_token');
     }
 
@@ -138,7 +139,7 @@ export const api = {
     const formData = new FormData();
     formData.append(fieldName, file);
 
-    const token = localStorage.getItem('iswcdn_token');
+    const token = localStorage.getItem('isowcod_token') || localStorage.getItem('iswcdn_token');
     const headers: Record<string, string> = {};
     if (token) {
       headers['Authorization'] = `Bearer ${token}`;

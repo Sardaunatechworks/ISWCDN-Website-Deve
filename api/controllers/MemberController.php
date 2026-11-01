@@ -104,7 +104,7 @@ class MemberController
             $year = date('Y');
             $countStmt = $db->query('SELECT COUNT(*) FROM members');
             $nextNum = ((int)$countStmt->fetchColumn()) + 1;
-            $memberId = sprintf('ISWCDN-%s-%04d', $year, $nextNum);
+            $memberId = sprintf('ISOWCOD-%s-%04d', $year, $nextNum);
         }
 
         $stmt = $db->prepare('

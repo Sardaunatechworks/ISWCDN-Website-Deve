@@ -1,5 +1,5 @@
 -- =====================================================================
--- ISWCDN - Remove Partner Logos from Photo Gallery
+-- ISOWCOD - Remove Partner Logos from Photo Gallery
 -- Run this once in phpMyAdmin if the gallery table already contains logos
 -- =====================================================================
 

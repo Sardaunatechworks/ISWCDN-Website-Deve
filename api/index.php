@@ -109,12 +109,12 @@ function route(string $method, string $pattern, callable $handler): void {
 route('GET', '/', function () {
     $dbOk = Database::testConnection();
     Response::success([
-        'api'      => ISWCDN_API_NAME,
-        'version'  => ISWCDN_API_VERSION,
+        'api'      => ISOWCOD_API_NAME,
+        'version'  => ISOWCOD_API_VERSION,
         'status'   => 'online',
         'database' => $dbOk ? 'connected' : 'disconnected',
         'time'     => date('c'),
-    ], 'ISWCDN Institutional API is online and operational.');
+    ], 'ISOWCOD Institutional API is online and operational.');
 });
 
 // 2. Authentication

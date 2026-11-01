@@ -38,13 +38,13 @@ class NewsletterController
         $check = $db->prepare('SELECT id FROM subscribers WHERE email = :email LIMIT 1');
         $check->execute([':email' => $email]);
         if ($check->fetch()) {
-            Response::success(null, 'You are already subscribed to the ISWCDN official bulletin.');
+            Response::success(null, 'You are already subscribed to the ISOWCOD official bulletin.');
         }
 
         $stmt = $db->prepare('INSERT INTO subscribers (email) VALUES (:email)');
         $stmt->execute([':email' => $email]);
 
-        Response::success(null, 'Thank you for subscribing to ISWCDN institutional updates!', 201);
+        Response::success(null, 'Thank you for subscribing to ISOWCOD institutional updates!', 201);
     }
 
     /**

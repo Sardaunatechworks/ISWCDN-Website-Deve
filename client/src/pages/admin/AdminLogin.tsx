@@ -63,7 +63,7 @@ export default function AdminLogin() {
             Admin Portal
           </CardTitle>
           <CardDescription className="text-muted-foreground font-medium">
-            Sign in to manage the ISWCDN institute dashboard.
+            Sign in to manage the ISOWCOD institute dashboard.
           </CardDescription>
         </CardHeader>
         
@@ -130,9 +130,9 @@ export default function AdminLogin() {
       {/* Logo Branding */}
       <div className="absolute bottom-6 flex items-center gap-2 opacity-50 z-10">
         <div className="bg-primary/10 p-1.5 rounded-lg border border-primary/20">
-          <img src="/logo.png" alt="ISWCDN Logo" className="h-6 w-6 object-contain" />
+          <img src="/logo.png" alt="ISOWCOD Logo" className="h-6 w-6 object-contain" />
         </div>
-        <span className="font-serif font-bold text-primary tracking-tight text-sm uppercase">ISWCDN INSTITUTE</span>
+        <span className="font-serif font-bold text-primary tracking-tight text-sm uppercase">ISOWCOD INSTITUTE</span>
       </div>
     </div>
   );
